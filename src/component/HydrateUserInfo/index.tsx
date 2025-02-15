@@ -16,10 +16,7 @@ interface HydrateUserInfoProps {
     children: React.ReactNode;
 }
 
-const HydrateUserInfo = async ({
-    children,
-    userInfo,
-}: HydrateUserInfoProps) => {
+const HydrateUserInfo = ({ children, userInfo }: HydrateUserInfoProps) => {
     useHydrateAtoms([[atomUserInfo, userInfo]]);
     return children;
 };
