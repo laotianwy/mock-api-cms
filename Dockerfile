@@ -32,6 +32,7 @@ COPY --from=builder /app/.next/standalone /mock-app
 
 # 设置环境端口
 ENV PORT=80
+ENV HOSTNAME=0.0.0.0
 
 # 设置端口
 EXPOSE 80
