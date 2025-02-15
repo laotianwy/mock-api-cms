@@ -5,7 +5,7 @@
  * @Author: laotianwy 1695657342@qq.com
  * @Date: 2025-02-14 19:13:29
  * @LastEditors: laotianwy 1695657342@qq.com
- * @LastEditTime: 2025-02-15 20:23:53
+ * @LastEditTime: 2025-02-16 01:52:06
  * @FilePath: /mock-api-cms/src/app/auth/login/page.tsx
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  */
@@ -15,6 +15,7 @@ import { startTransition, useActionState } from 'react';
 import jsCookie from 'js-cookie';
 import { GLOBAL_USER_TOKEN } from '@/const';
 import { useRouter } from 'next/navigation';
+import { serviceConfig } from '@/config/request/swaggerServiceConfig';
 
 const LoginPage = () => {
     const router = useRouter();
@@ -45,7 +46,7 @@ const LoginPage = () => {
     };
     return (
         <div>
-            <img src="http://localhost:3000/mock/user/getCaptcha" />
+            <img src={`${serviceConfig.baseURL}/mock/user/getCaptcha`} />
             <form onSubmit={handleSubmit}>
                 <input type="text" name="captcha" placeholder="用户名" />
                 <button type="submit" disabled={isPending}>
