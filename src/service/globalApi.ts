@@ -272,6 +272,26 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
      * No description
      *
      * @tags User
+     * @name UserFindUserInfo
+     * @request GET:/mock/user/findUserInfo
+     */
+    userFindUserInfo: (params: RequestParams = {}) =>
+      this.request<
+        ResponseModel & {
+          data?: UserEntity;
+        },
+        any
+      >({
+        path: `/mock/user/findUserInfo`,
+        method: "GET",
+        format: "json",
+        ...params,
+      }),
+
+    /**
+     * No description
+     *
+     * @tags User
      * @name UserGetCaptcha
      * @request GET:/mock/user/getCaptcha
      */
