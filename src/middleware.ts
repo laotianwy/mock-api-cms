@@ -2,7 +2,7 @@
  * @Author: laotianwy 1695657342@qq.com
  * @Date: 2025-02-16 16:40:31
  * @LastEditors: laotianwy 1695657342@qq.com
- * @LastEditTime: 2025-02-16 16:58:45
+ * @LastEditTime: 2025-02-16 17:06:46
  * @FilePath: /mock-api-cms/src/app/middleware.ts
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  */
@@ -13,6 +13,10 @@ import { GLOBAL_USER_TOKEN } from './const';
 export const middleware = (request: NextRequest) => {
     // 获取请求的路径
     const path = request.nextUrl.pathname;
+
+    if (path === '/') {
+        return NextResponse.redirect(new URL('/dashboard', request.url));
+    }
 
     // 检查用户是否已登录（假设使用 cookie 存储 token）
     const token = request.cookies.get(GLOBAL_USER_TOKEN)?.value;
@@ -35,6 +39,7 @@ export const middleware = (request: NextRequest) => {
 // 配置中间件应用的路径
 export const config = {
     matcher: [
+        '/',
         '/dashboard/:path*', // 匹配 /dashboard 下的所有路径
         '/auth/login', // 匹配登录页面
     ],
