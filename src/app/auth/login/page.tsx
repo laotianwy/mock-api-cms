@@ -5,36 +5,26 @@
  * @Author: laotianwy 1695657342@qq.com
  * @Date: 2025-02-14 19:13:29
  * @LastEditors: laotianwy 1695657342@qq.com
- * @LastEditTime: 2025-02-16 16:06:53
+ * @LastEditTime: 2025-02-16 18:28:14
  * @FilePath: /mock-api-cms/src/app/auth/login/page.tsx
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  */
 'use client';
-import { request } from '@/config/request';
 import { startTransition, useActionState } from 'react';
-import jsCookie from 'js-cookie';
-import { GLOBAL_USER_TOKEN } from '@/const';
-import { useRouter } from 'next/navigation';
 import { serviceConfig } from '@/config/request/swaggerServiceConfig';
+import { useLogin } from '@/hooks/useLogin';
 
 const LoginPage = () => {
-    const router = useRouter();
+    const loginAction = useLogin();
+
     const [, formAction, isPending] = useActionState(
-        (preState: any, formData: any) => {
+        (_: any, formData: any) => {
             startTransition(async () => {
-                const res = await request.globalApi.mock.userLogin(
-                    {
-                        username: 'admin',
-                        password: '123456',
-                        captcha: formData.get('captcha'),
-                    },
-                    {
-                        withCredentials: true,
-                        useMock: false,
-                    },
-                );
-                jsCookie.set(GLOBAL_USER_TOKEN, res.data);
-                router.replace('/dashboard');
+                await loginAction({
+                    username: 'admin',
+                    password: '123456',
+                    captcha: formData.get('captcha'),
+                });
             });
         },
         undefined,
