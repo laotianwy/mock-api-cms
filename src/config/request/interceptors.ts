@@ -2,11 +2,12 @@
  * @Author: laotianwy 1695657342@qq.com
  * @Date: 2025-01-06 23:39:38
  * @LastEditors: laotianwy 1695657342@qq.com
- * @LastEditTime: 2025-02-15 19:30:12
+ * @LastEditTime: 2025-02-16 14:47:53
  * @FilePath: /cli/src/utils/apiGenTs/runProjectTemplate/interceptors.ts
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  */
 import { AxiosResponse, InternalAxiosRequestConfig } from 'axios';
+import { axiosMockWrapper } from 'tianzhitong-cli/dist/adapters.js';
 import { api, apiInstanceList } from '../../service';
 import jsCookie from 'js-cookie'; // 使用 js-cookie 库来处理 cookies
 import { GLOBAL_USER_TOKEN, isSSR } from '@/const';
@@ -18,6 +19,9 @@ const wrapperRequestHeaderCSR = async (config: InternalAxiosRequestConfig) => {
     if (userToken) {
         config.headers.Authorization = `Bearer ${userToken}`;
     }
+    axiosMockWrapper(config, {
+        mockBaseUrl: 'http://localhost:3000',
+    });
     return config;
 };
 
@@ -29,6 +33,10 @@ const wrapperRequestHeaderSSR = async (config: InternalAxiosRequestConfig) => {
     if (userToken) {
         config.headers.Authorization = `Bearer ${userToken.value}`;
     }
+
+    axiosMockWrapper(config, {
+        mockBaseUrl: 'http://localhost:3000',
+    });
     return config;
 };
 
