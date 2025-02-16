@@ -2,7 +2,7 @@
  * @Author: laotianwy 1695657342@qq.com
  * @Date: 2025-02-14 19:02:07
  * @LastEditors: laotianwy 1695657342@qq.com
- * @LastEditTime: 2025-02-17 03:03:33
+ * @LastEditTime: 2025-02-17 03:30:50
  * @FilePath: /mock-api-cms/src/app/layout.tsx
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  */
@@ -10,6 +10,7 @@ import type { Metadata } from 'next';
 import { Geist, Geist_Mono } from 'next/font/google';
 import { AntdRegistry } from '@ant-design/nextjs-registry';
 import { Provider } from 'jotai';
+import FixAntdReact19 from '@/components/FixAntdReact19';
 import './globals.css';
 
 const geistSans = Geist({
@@ -38,7 +39,9 @@ export default function RootLayout({
                 className={`${geistSans.variable} ${geistMono.variable} antialiased`}
             >
                 <Provider>
-                    <AntdRegistry>{children}</AntdRegistry>
+                    <FixAntdReact19>
+                        <AntdRegistry>{children}</AntdRegistry>
+                    </FixAntdReact19>
                 </Provider>
             </body>
         </html>

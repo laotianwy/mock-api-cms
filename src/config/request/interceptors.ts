@@ -2,7 +2,7 @@
  * @Author: laotianwy 1695657342@qq.com
  * @Date: 2025-01-06 23:39:38
  * @LastEditors: laotianwy 1695657342@qq.com
- * @LastEditTime: 2025-02-17 03:09:16
+ * @LastEditTime: 2025-02-17 03:30:23
  * @FilePath: /cli/src/utils/apiGenTs/runProjectTemplate/interceptors.ts
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  */
@@ -12,7 +12,6 @@ import { api, apiInstanceList } from '../../service';
 import jsCookie from 'js-cookie'; // 使用 js-cookie 库来处理 cookies
 import { GLOBAL_USER_TOKEN, isSSR } from '@/const';
 import { message } from 'antd';
-import '@ant-design/v5-patch-for-react-19';
 
 // Wrapper function to set request headers
 const wrapperRequestHeaderCSR = async (config: InternalAxiosRequestConfig) => {
