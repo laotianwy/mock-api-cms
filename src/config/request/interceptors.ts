@@ -2,7 +2,7 @@
  * @Author: laotianwy 1695657342@qq.com
  * @Date: 2025-01-06 23:39:38
  * @LastEditors: laotianwy 1695657342@qq.com
- * @LastEditTime: 2025-02-16 14:47:53
+ * @LastEditTime: 2025-02-17 00:42:54
  * @FilePath: /cli/src/utils/apiGenTs/runProjectTemplate/interceptors.ts
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  */
@@ -28,8 +28,8 @@ const wrapperRequestHeaderCSR = async (config: InternalAxiosRequestConfig) => {
 const wrapperRequestHeaderSSR = async (config: InternalAxiosRequestConfig) => {
     config.headers = config.headers ?? {};
     const importSSRcookie = await import('next/headers');
-    const cookies = importSSRcookie.default.cookies;
-    const userToken = (await cookies()).get(GLOBAL_USER_TOKEN);
+    const cookies = await importSSRcookie.cookies();
+    const userToken = cookies.get(GLOBAL_USER_TOKEN);
     if (userToken) {
         config.headers.Authorization = `Bearer ${userToken.value}`;
     }
