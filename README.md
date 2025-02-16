@@ -2,7 +2,7 @@
  * @Author: laotianwy 1695657342@qq.com
  * @Date: 2025-02-15 20:12:21
  * @LastEditors: laotianwy 1695657342@qq.com
- * @LastEditTime: 2025-02-16 21:40:00
+ * @LastEditTime: 2025-02-17 00:49:20
  * @FilePath: /mock-api-cms/README.md
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
 -->
@@ -15,6 +15,8 @@ docker build -t mock-api-cms .
 
 docker run --name mock-ssr -d -p 80:80 mock-api-cms:latest
 
+# 开发模式调试生产环境数据
+pnpm build && cd .next/standalone && PORT=80 node server.js
 # 服务器扔文件
 scp -r ./restart_service.sh root@1.95.80.219:/mock-app-cms
 
