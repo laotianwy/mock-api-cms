@@ -39,8 +39,8 @@ importers:
         specifier: ^19.0.0
         version: 19.0.0(react@19.0.0)
       tianzhitong-cli:
-        specifier: ^2.0.4
-        version: 2.0.4(@types/node@20.17.19)
+        specifier: ^2.0.5
+        version: 2.0.5(@types/node@20.17.19)
     devDependencies:
       '@eslint/eslintrc':
         specifier: ^3
@@ -2972,8 +2972,8 @@ packages:
   through@2.3.8:
     resolution: {integrity: sha512-w89qg7PI8wAdvX60bMDP+bFoD5Dvhm9oLheFp5O4a2QF0cSBGsBX4qZmadPMvVqlLJBBci+WqGGOAPvcDeNSVg==}
 
-  tianzhitong-cli@2.0.4:
-    resolution: {integrity: sha512-WEOGennsASg0uMK8qCbvCCpgeX4NTzKIOLhbESgLSBejtV5kyNdcXA3hkFysx1WN9nkQiC4CuZkYcqn3Bw7V5A==}
+  tianzhitong-cli@2.0.5:
+    resolution: {integrity: sha512-H0v3NGZGfxTpY1ccMwAPMLhzRhN1TmD+fJ6/oRkfHvpF2NpF8dxDTHrTgWtq08Bfj476b2NT6QNJGr48M+4IoA==}
     hasBin: true
 
   timed-out@4.0.1:
@@ -6486,7 +6486,7 @@ snapshots:
 
   through@2.3.8: {}
 
-  tianzhitong-cli@2.0.4(@types/node@20.17.19):
+  tianzhitong-cli@2.0.5(@types/node@20.17.19):
     dependencies:
       axios: 1.7.9
       chalk: 5.4.1
