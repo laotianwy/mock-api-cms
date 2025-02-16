@@ -2,15 +2,16 @@
  * @Author: laotianwy 1695657342@qq.com
  * @Date: 2025-02-16 16:40:31
  * @LastEditors: laotianwy 1695657342@qq.com
- * @LastEditTime: 2025-02-16 17:06:46
+ * @LastEditTime: 2025-02-16 17:29:34
  * @FilePath: /mock-api-cms/src/app/middleware.ts
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  */
 import { NextResponse } from 'next/server';
 import type { NextRequest } from 'next/server';
 import { GLOBAL_USER_TOKEN } from './const';
+import { serviceConfig } from './config/request/swaggerServiceConfig';
 
-export const middleware = (request: NextRequest) => {
+export const middleware = async (request: NextRequest) => {
     // 获取请求的路径
     const path = request.nextUrl.pathname;
 
@@ -20,15 +21,26 @@ export const middleware = (request: NextRequest) => {
 
     // 检查用户是否已登录（假设使用 cookie 存储 token）
     const token = request.cookies.get(GLOBAL_USER_TOKEN)?.value;
+    const userInfo = token
+        ? (
+              await fetch(`${serviceConfig.baseURL}/mock/user/findUserInfo`, {
+                  headers: {
+                      Authorization: `Bearer ${token}`,
+                  },
+              })
+                  .then((response) => response.json())
+                  .catch(() => null)
+          )?.data
+        : undefined;
 
     // 如果用户未登录且访问的是受保护的路径
-    if (!token && path.startsWith('/dashboard')) {
+    if (!userInfo && path.startsWith('/dashboard')) {
         // 重定向到登录页面
         return NextResponse.redirect(new URL('/auth/login', request.url));
     }
 
     // 如果用户已登录且访问的是登录页面，重定向到首页
-    if (token && path === '/auth/login') {
+    if (userInfo && path === '/auth/login') {
         return NextResponse.redirect(new URL('/dashboard', request.url));
     }
 
