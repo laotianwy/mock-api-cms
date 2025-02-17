@@ -6,6 +6,7 @@ if [ -z "$1" ]; then
 fi
 
 IMAGE_TAG=$1
+DEPLOYMENT_ID=$(date +%s)
 SERVICE_NAME="mock-server-stack_ssr"
 
 # 拉取远程镜像
@@ -17,6 +18,7 @@ echo "拉取远程镜像成功..."
 echo "正在更新服务 $SERVICE_NAME 的镜像为 $IMAGE_TAG..."
 docker service update \
   --image $IMAGE_TAG \
+  --label deploymentId=$DEPLOYMENT_ID \
   $SERVICE_NAME
 
 echo "服务已重启。"
