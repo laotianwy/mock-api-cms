@@ -4,7 +4,7 @@
  * @Author: laotianwy 1695657342@qq.com
  * @Date: 2025-02-17 01:24:46
  * @LastEditors: laotianwy 1695657342@qq.com
- * @LastEditTime: 2025-02-17 19:10:20
+ * @LastEditTime: 2025-02-17 19:57:08
  * @FilePath: /mock-api-cms/src/app/auth/login/component/LoginModule/index.tsx
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  */
@@ -12,11 +12,12 @@
 import { serviceConfig } from '@/config/request/swaggerServiceConfig';
 import { useLogin } from '@/hooks/useLogin';
 import { Button, Form, Input } from 'antd';
-import { useTransition } from 'react';
+import { useState, useTransition } from 'react';
 
 const LoginForm = () => {
     const loginAction = useLogin();
     const [isPending, startTransition] = useTransition();
+    const [capachaKey, setCapachaKey] = useState(0);
 
     const handleSubmit = (form: any) => {
         startTransition(async () => {
@@ -26,6 +27,10 @@ const LoginForm = () => {
                 captcha: form.capacha,
             });
         });
+    };
+
+    const refreshCapacha = () => {
+        setCapachaKey(new Date().getTime());
     };
     return (
         <div className="w-96 bg-white rounded-md p-8 mt-[-60px]">
@@ -74,8 +79,9 @@ const LoginForm = () => {
                                 placeholder="请输入验证码"
                             />
                             <img
+                                onClick={refreshCapacha}
                                 className="ml-2 h-[32px]"
-                                src={`${serviceConfig.baseURL}/mock/user/getCaptcha`}
+                                src={`${serviceConfig.baseURL}/mock/user/getCaptcha?key=${capachaKey}`}
                                 alt="capacha"
                             />
                         </div>
