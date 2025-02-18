@@ -4,7 +4,7 @@
  * @Author: laotianwy 1695657342@qq.com
  * @Date: 2025-02-17 01:24:46
  * @LastEditors: laotianwy 1695657342@qq.com
- * @LastEditTime: 2025-02-18 18:37:09
+ * @LastEditTime: 2025-02-18 18:47:22
  * @FilePath: /mock-api-cms/src/app/auth/login/component/LoginModule/index.tsx
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  */
@@ -12,21 +12,28 @@
 import { serviceConfig } from '@/config/request/swaggerServiceConfig';
 import { useLogin } from '@/hooks/useLogin';
 import { Button, Form, Input } from 'antd';
-import { useState, useTransition } from 'react';
+import { useRef, useState } from 'react';
 
 const LoginForm = () => {
     const loginAction = useLogin();
-    const [isPending, startTransition] = useTransition();
     const [capachaKey, setCapachaKey] = useState(0);
 
-    const handleSubmit = (form: any) => {
-        startTransition(async () => {
+    /** 是否提交form表单 */
+    const isPendingRef = useRef(false);
+
+    const handleSubmit = async (form: any) => {
+        if (isPendingRef.current) return;
+        isPendingRef.current = true;
+
+        try {
             await loginAction({
                 username: form.username,
                 password: form.password,
                 captcha: form.capacha,
             });
-        });
+        } finally {
+            isPendingRef.current = false;
+        }
     };
 
     const refreshCapacha = () => {
@@ -89,8 +96,8 @@ const LoginForm = () => {
                     <Form.Item>
                         <Button
                             type="primary"
+                            size="middle"
                             className="w-full"
-                            disabled={isPending}
                             htmlType="submit"
                         >
                             登录
