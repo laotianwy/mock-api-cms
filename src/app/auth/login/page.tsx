@@ -2,12 +2,30 @@
  * @Author: laotianwy 1695657342@qq.com
  * @Date: 2025-02-14 19:13:29
  * @LastEditors: laotianwy 1695657342@qq.com
- * @LastEditTime: 2025-02-17 19:10:35
+ * @LastEditTime: 2025-02-18 18:25:53
  * @FilePath: /mock-api-cms/src/app/auth/login/page.tsx
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  */
-import SeoHeader from '@/components/SeoHeader';
 import LoginForm from './component/LoginForm';
+import { Metadata } from 'next';
+
+export const generateMetadata = async (): Promise<Metadata> => {
+    return {
+        title: 'mock-api-cms login',
+        description: '这是一个登录页面',
+        keywords: '登录, laotianwy, tianzhitong',
+        authors: [
+            {
+                name: 'laotianwy',
+                url: 'https://github.com/laotianwy/mock-api-cms',
+            },
+            {
+                name: 'tianzhitong',
+                url: 'https://github.com/laotianwy/mock-api-server',
+            },
+        ],
+    };
+};
 
 const LoginPage = () => {
     return (
@@ -17,12 +35,7 @@ const LoginPage = () => {
                 backgroundImage: 'url(/images/user/login-bg.png)',
             }}
         >
-            <SeoHeader
-                title="mock-api-cms login"
-                description="这是一个登录页面"
-                keywords="登录 laotianwy cms"
-                author="laotianwy"
-            />
+            <h1 className="hidden">mock-api-cms login</h1>
             <LoginForm />
         </div>
     );

@@ -4,7 +4,7 @@
  * @Author: laotianwy 1695657342@qq.com
  * @Date: 2025-02-17 01:24:46
  * @LastEditors: laotianwy 1695657342@qq.com
- * @LastEditTime: 2025-02-17 19:57:08
+ * @LastEditTime: 2025-02-18 18:37:09
  * @FilePath: /mock-api-cms/src/app/auth/login/component/LoginModule/index.tsx
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  */
@@ -33,7 +33,7 @@ const LoginForm = () => {
         setCapachaKey(new Date().getTime());
     };
     return (
-        <div className="w-96 bg-white rounded-md p-8 mt-[-60px]">
+        <div className="w-96 mo:w-[90vw] bg-white rounded-md p-8 mt-[-60px]">
             <h2 className="text-center text-[18px]">mock-api后台管理系统</h2>
             <div className="mt-8">
                 <Form
