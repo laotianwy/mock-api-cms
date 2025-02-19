@@ -4,7 +4,7 @@
  * @Author: laotianwy 1695657342@qq.com
  * @Date: 2025-02-17 01:24:46
  * @LastEditors: laotianwy 1695657342@qq.com
- * @LastEditTime: 2025-02-19 17:15:18
+ * @LastEditTime: 2025-02-19 18:50:20
  * @FilePath: /mock-api-cms/src/app/auth/login/component/LoginModule/index.tsx
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  */
@@ -12,12 +12,14 @@
 import { serviceConfig } from '@/config/request/swaggerServiceConfig';
 import { useLogin } from '@/hooks/useLogin';
 import { Button, Form, Input } from 'antd';
-import { useSearchParams } from 'next/navigation';
 import { useRef, useState } from 'react';
 
-const LoginForm = () => {
-    const searchParams = useSearchParams();
-    const goback = Boolean(searchParams.get('goback'));
+interface LoginFormProps {
+    goback?: boolean;
+}
+
+const LoginForm = (props: LoginFormProps) => {
+    const { goback } = props;
 
     const loginAction = useLogin();
     const [capachaKey, setCapachaKey] = useState(0);
