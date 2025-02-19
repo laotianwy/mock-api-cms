@@ -2,7 +2,7 @@
  * @Author: laotianwy 1695657342@qq.com
  * @Date: 2025-02-14 19:13:29
  * @LastEditors: laotianwy 1695657342@qq.com
- * @LastEditTime: 2025-02-19 18:51:50
+ * @LastEditTime: 2025-02-19 18:58:20
  * @FilePath: /mock-api-cms/src/app/auth/login/page.tsx
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  */
@@ -30,12 +30,12 @@ interface searchParamsProps {
     goback?: string;
 }
 
-interface LoginPageProps {
-    searchParams: searchParamsProps;
+interface PageProps {
+    searchParams: Promise<searchParamsProps>;
 }
 
-const LoginPage = ({ searchParams }: LoginPageProps) => {
-    const goback = Boolean(searchParams.goback);
+const LoginPage = async ({ searchParams }: PageProps) => {
+    const { goback } = await searchParams;
     return (
         <div
             className="w-screen h-screen bg-no-repeat bg-cover flex justify-center items-center"
@@ -44,7 +44,7 @@ const LoginPage = ({ searchParams }: LoginPageProps) => {
             }}
         >
             <h1 className="hidden">mock-api-cms login</h1>
-            <LoginForm goback={goback} />
+            <LoginForm goback={Boolean(goback)} />
         </div>
     );
 };
