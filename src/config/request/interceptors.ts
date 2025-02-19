@@ -11,7 +11,7 @@ import { isSSR } from '@/const';
 import { api, apiInstanceList } from '../../service';
 import wrapperRequestHeaderSSR from './interceptorsRequest/wrapperRequestHeaderSSR';
 import wrapperRequestHeaderCSR from './interceptorsRequest/wrapperRequestHeaderCSR';
-import wrapperResponseHeaderSSR from './interceptorsResponse/wrapperResponseHeaderSSR';
+import responseInterceptorSSR from './interceptorsResponse/responseInterceptorSSR';
 import responseInterceptorCSR from './interceptorsResponse/responseInterceptorCSR';
 
 // Loop through apiInstanceList and apply request interceptor
@@ -20,7 +20,7 @@ apiInstanceList.forEach(async (item) => {
         isSSR() ? wrapperRequestHeaderSSR : wrapperRequestHeaderCSR,
     );
     item.instance.instance.interceptors.response.use(
-        isSSR() ? wrapperResponseHeaderSSR : responseInterceptorCSR,
+        isSSR() ? responseInterceptorSSR : responseInterceptorCSR,
         function (response) {
             if (response?.response?.data?.code === 400) {
                 message.error(response.response.data.message);
